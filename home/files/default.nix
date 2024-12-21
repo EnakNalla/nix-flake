@@ -1,5 +1,5 @@
 {
-  home.file.".ideavimrc".source = ./.ideavimrc;
+  home.file.".ideavimrc".source = ./ideavimrc;
 
   home.file.".config/sketchybar" = {
     source = ./sketchybar;

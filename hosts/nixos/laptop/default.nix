@@ -1,5 +1,6 @@
-{ pkgs, ... }: {
-  imports = [./hardware-configuration.nix];
+{ pkgs, ... }:
+{
+  imports = [ ./hardware-configuration.nix ];
 
   hardware.nvidia.enable = true;
 

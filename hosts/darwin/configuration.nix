@@ -1,20 +1,33 @@
 {
   pkgs,
   inputs,
+  vars,
   ...
-}: {
+}:
+{
   # System config
   nixpkgs = {
     hostPlatform = "aarch64-darwin";
 
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
+      inputs.nh.overlays.default
     ];
 
     config.allowUnfree = true;
   };
 
-  nix.settings.experimental-features = "nix-command flakes";
+  nix = {
+    optimise.automatic = true;
+
+    registry.nixpkgs.flake = inputs.nixpkgs;
+
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-outputs          = true
+      keep-derivations      = true
+    '';
+  };
 
   services.nix-daemon.enable = true;
 
@@ -69,8 +82,8 @@
 
   programs.zsh.enable = true;
 
-  users.users.enak = {
-    home = "/Users/enak";
+  users.users.${vars.user} = {
+    home = "${vars.home}";
     shell = pkgs.zsh;
   };
 
@@ -81,7 +94,14 @@
 
   # apps & services
   environment = {
-    darwinConfig = "/Users/enak/nix-darwin";
+    darwinConfig = "${vars.flake}";
+    variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      TERMINAL = "${vars.terminal}";
+      FLAKE = "${vars.flake}";
+    };
+
     systemPackages = with pkgs; [
       # utilities
       fzf # fuzzy finder
@@ -90,17 +110,20 @@
       ripgrep # recursive regex
       sketchybar-app-font
       fd
-      gimp
       eza
 
+      # apps
+      spotify
+      discord
+      brave # chromium based browser needed for react-native debugging
+
       # dev
-      # neovim
       nil # .nix lsp
+      nixfmt-rfc-style
       dotnet-sdk_8
       lazygit # git tui
       cargo
       zulu17
-      jetbrains.phpstorm
       prettierd
     ];
   };
@@ -122,29 +145,41 @@
     ];
 
     casks = [
-      "google-chrome"
       "docker"
       "android-studio"
-      "alfred"
       "cleanmymac"
       "stats"
       "launchcontrol"
       "sf-symbols"
       "zen-browser"
-      "discord"
       "aerospace"
+      "monarch"
+      "vlc"
     ];
 
     masApps = {
       "Xcode" = 497799835;
       "Bitwarden" = 1352778147;
       "Vimari" = 1480933944;
+      "vinegar" = 1591303229;
     };
   };
 
   fonts.packages = [
     pkgs.nerd-fonts.jetbrains-mono
+    # pkgs.nerd-fonts.monaspace
   ];
+
+  # command on darwin is nh darwin build
+  programs.nh = {
+    enable = true;
+    clean = {
+      enable = true;
+      extraArgs = "--delete-older-than 2d";
+      # interval = "weekly";
+    };
+    flake = "${vars.flake}";
+  };
 
   services = {
     # Can't use aerospace & sketchybar as nix services because then they don't play well together. Only way I found to make it work is both as homebrew packages.

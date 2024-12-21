@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.vscode = {
     enable = true;
     enableUpdateCheck = false;
@@ -6,23 +7,17 @@
     mutableExtensionsDir = true;
 
     extensions = with pkgs.vscode-marketplace; [
-      /*
-      microsoft
-      */
+      # microsoft
       ms-vscode-remote.remote-ssh
       ms-vscode.remote-explorer
       ms-vscode-remote.remote-ssh-edit
       ms-azuretools.vscode-docker
 
-      /*
-      vim
-      */
+      # vim
       vscodevim.vim
       vspacecode.whichkey
 
-      /*
-      languages
-      */
+      # languages
       jnoortheen.nix-ide
       golang.go
       mikestead.dotenv
@@ -43,9 +38,7 @@
       esbenp.prettier-vscode
       bradlc.vscode-tailwindcss
 
-      /*
-      utilities
-      */
+      # utilities
       alexcvzz.vscode-sqlite
       patbenatar.advanced-new-file
       alefragnani.bookmarks
@@ -55,15 +48,13 @@
       amodio.toggle-excluded-files
       streetsidesoftware.code-spell-checker
       editorconfig.editorconfig
-      github.copilot
-      github.copilot-chat
+      pkgs.vscode-marketplace-release.github.copilot
+      pkgs.vscode-marketplace-release.github.copilot-chat
       eamodio.gitlens
       timgthomas.explorer-gitignore
       lokalise.i18n-ally
 
-      /*
-      UI
-      */
+      # UI
       usernamehw.errorlens
       aaron-bond.better-comments
       naumovs.color-highlight
@@ -72,9 +63,7 @@
     ];
 
     userSettings = {
-      /*
-      general
-      */
+      # general
       "window.titleBarStyle" = "custom";
 
       "files.exclude" = {
@@ -86,17 +75,13 @@
         "**/obj" = false;
       };
 
-      /*
-      workbench settings
-      */
+      # workbench settings
       "workbench.colorTheme" = "Dracula Theme";
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.layoutControl.enabled" = false;
       "workbench.sideBar.location" = "right";
 
-      /*
-      editor settings
-      */
+      # editor settings
       "editor.inlineSuggest.enabled" = true;
       "editor.suggestOnTriggerCharacters" = true;
       "editor.accessibilitySupport" = "off";
@@ -127,9 +112,7 @@
       # terminal settings
       "terminal.integrated.fontSize" = 16;
 
-      /*
-      vim
-      */
+      # vim
 
       # settings
       "vim.autoindent" = true;
@@ -516,9 +499,7 @@
         }
       ];
 
-      /*
-      advanced new file
-      */
+      # advanced new file
       "advancedNewFile.exclude" = {
         "node_modules" = true;
         "node_modules_electron" = true;
@@ -532,9 +513,7 @@
         "root"
       ];
 
-      /*
-      languages
-      */
+      # languages
 
       # javascript
       "javascript.updateImportsOnFileMove.enabled" = "always";
@@ -564,6 +543,15 @@
         "editor.defaultFormatter" = "jnoortheen.nix-ide";
       };
       "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nil";
+      "nix.formatterPath" = "nixfmt";
+      "nix.serverSettings" = {
+        "nil" = {
+          "formatting" = {
+            "command" = [ "nixfmt" ];
+          };
+        };
+      };
     };
 
     keybindings = [

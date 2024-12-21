@@ -6,16 +6,20 @@
   host,
   vars,
   ...
-}: let
+}:
+let
   colours = import ../../utils/colours.nix;
 
   hyprland = inputs.hyprland;
 in
-  with lib;
-  with host; {
-    environment = let
+with lib;
+with host;
+{
+  environment =
+    let
       exec = "exec dbus-launch hyprland";
-    in {
+    in
+    {
       loginShellInit = ''
         if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
           ${exec}
@@ -45,45 +49,43 @@ in
       ];
     };
 
-    programs.hyprland = {
-      enable = true;
-      package = hyprland.packages.${pkgs.system}.hyprland;
-    };
+  programs.hyprland = {
+    enable = true;
+    package = hyprland.packages.${pkgs.system}.hyprland;
+  };
 
-    security.pam.services.hyprlock = {
-      text = "auth include login";
-      fprintAuth =
-        if hostName == "laptop"
-        then true
-        else false;
-      enableGnomeKeyring = true;
-    };
+  security.pam.services.hyprlock = {
+    text = "auth include login";
+    fprintAuth = if hostName == "laptop" then true else false;
+    enableGnomeKeyring = true;
+  };
 
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${config.programs.hyprland.package}/bin/Hyprland";
-          user = vars.user;
-        };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${config.programs.hyprland.package}/bin/Hyprland";
+        user = vars.user;
       };
-      vt = 7;
     };
+    vt = 7;
+  };
 
-    # clamshell mode
-    systemd.sleep.extraConfig = ''
-      AllowSuspend=yes
-      AllowHibernation=no
-      AllowSuspendThenHibernate=no
-      AllowHybridSleep=yes
-    '';
+  # clamshell mode
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=yes
+  '';
 
-    nix.settings = {
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-    };
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  };
 
-    home-manager.users.${vars.user} = let
+  home-manager.users.${vars.user} =
+    let
       lockScript = pkgs.writeShellScript "lock-script" ''
         action=$1
         ${pkgs.pipewire}/bin/pw-cli i all | ${pkgs.ripgrep}/bin/rg running
@@ -109,7 +111,8 @@ in
           fi
         fi
       '';
-    in {
+    in
+    {
       imports = [
         hyprland.homeManagerModules.default
       ];
@@ -207,7 +210,7 @@ in
             "eDP-1,preferred,auto,auto"
             "DP-3,preferred,auto,auto"
           ];
-          workspace = [];
+          workspace = [ ];
           general = {
             border_size = 2;
             no_border_on_floating = false;
@@ -230,7 +233,7 @@ in
           };
           animations = {
             enabled = true;
-            bezier = ["myBezier, 0.05, 0.9, 0.1, 1.05"];
+            bezier = [ "myBezier, 0.05, 0.9, 0.1, 1.05" ];
             animation = [
               "windows, 1, 7, myBezier"
               "windowsOut, 1, 7, default, popin 80%"
@@ -245,14 +248,15 @@ in
             kb_options = "caps:ctrl_modifier";
             accel_profile = "flat";
             touchpad =
-              if hostName == "laptop"
-              then {
-                natural_scroll = true;
-                scroll_factor = 0.2;
-                middle_button_emulation = true;
-                tap-to-click = true;
-              }
-              else {};
+              if hostName == "laptop" then
+                {
+                  natural_scroll = true;
+                  scroll_factor = 0.2;
+                  middle_button_emulation = true;
+                  tap-to-click = true;
+                }
+              else
+                { };
           };
           cursor = {
             no_hardware_cursors = true;
@@ -342,4 +346,4 @@ in
         };
       };
     };
-  }
+}

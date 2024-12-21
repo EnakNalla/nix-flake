@@ -1,11 +1,10 @@
-{mac-app-util, vars, ...}: {
-  imports =
-    [
-      mac-app-util.homeManagerModules.default
+{ mac-app-util, vars, ... }:
+{
+  imports = [
+    mac-app-util.homeManagerModules.default
 
-      ./files
-    ]
-    ++ import ./programs;
+    ./files
+  ] ++ import ./programs;
 
   home = {
     username = vars.user;

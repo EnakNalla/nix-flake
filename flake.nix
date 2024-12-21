@@ -11,8 +11,10 @@
     };
     mac-app-util.url = "github:hraban/mac-app-util";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    # nh with darwin support (to remove once <https://github.com/LnL7/nix-darwin/pull/942>) merges
+    nh.url = "github:viperML/nh";
     ####################################################
-    
+
     ########### nixos specific flake inputs ###########
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     ####################################################
@@ -25,19 +27,21 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs = {self, nixpkgs, ...} @ inputs: {
-    darwinConfigurations = (
-      import ./hosts/darwin {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs;
-      }
-    );
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    {
+      darwinConfigurations = (
+        import ./hosts/darwin {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs;
+        }
+      );
 
-    nixosConfigurations = (
-      import ./hosts/nixos {
-        inherit (nixpkgs) lib;
-        inherit inputs nixpkgs;
-      }
-    );
-  };
+      nixosConfigurations = (
+        import ./hosts/nixos {
+          inherit (nixpkgs) lib;
+          inherit inputs nixpkgs;
+        }
+      );
+    };
 }

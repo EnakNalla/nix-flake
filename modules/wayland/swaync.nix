@@ -2,9 +2,11 @@
   pkgs,
   vars,
   ...
-}: let
+}:
+let
   colours = import ../../utils/colours.nix;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     swaynotificationcenter
   ];

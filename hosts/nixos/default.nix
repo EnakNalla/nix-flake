@@ -4,6 +4,7 @@ let
     user = "enak";
     terminal = "alacritty";
     flake = "/home/enak/nix";
+    home = "/home/enak";
   };
 
   system = "x86_64-linux";
@@ -13,17 +14,18 @@ let
   modules = [
     inputs.home-manager.nixosModules.home-manager
     {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = {
-          inherit inputs vars;
-        };
-        home-manager.users.${vars.user} = import ../../home;
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = {
+        inherit inputs vars;
+      };
+      home-manager.users.${vars.user} = import ../../home;
     }
 
     ./configuration.nix
   ] ++ (import ../../modules);
-in {
+in
+{
   laptop = lib.nixosSystem {
     inherit system;
 
@@ -32,7 +34,7 @@ in {
       host.hostName = "laptop";
     };
 
-    modules = [./laptop] ++ modules;
+    modules = [ ./laptop ] ++ modules;
   };
 
   work = lib.nixosSystem {
@@ -43,6 +45,6 @@ in {
       host.hostName = "work";
     };
 
-    modules = [./work] ++ modules;
+    modules = [ ./work ] ++ modules;
   };
 }

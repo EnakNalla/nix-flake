@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
@@ -17,6 +18,12 @@
       enable = true;
       searchUpKey = "^n";
       searchDownKey = "^p";
+    };
+
+    prezto = {
+      tmux = {
+        autoStartLocal = true;
+      };
     };
 
     shellAliases = {

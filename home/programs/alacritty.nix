@@ -1,15 +1,16 @@
 let
   colours = import ../../utils/colours.nix;
-in {
+in
+{
   programs.alacritty = with colours.hex; {
     enable = true;
     settings = {
       font = {
         normal.family = "JetBrainsMono Nerd Font";
-        bold = {style = "Bold";};
-        italic = {style = "Italic";};
         size = 18;
       };
+
+      env.term = "xterm-256color";
 
       cursor.style.shape = "Beam";
 
@@ -23,8 +24,6 @@ in {
         dynamic_title = true;
         dynamic_padding = true;
       };
-
-      env.TERM = "xterm-256color";
 
       selection = {
         save_to_clipboard = true;

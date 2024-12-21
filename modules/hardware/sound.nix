@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     alsa-utils # utilities for audio control
     pavucontrol # pulseaudio volume control

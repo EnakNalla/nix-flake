@@ -3,12 +3,12 @@
   inputs,
   vars,
   ...
-}: let
+}:
+let
   terminal = pkgs.${vars.terminal};
-in {
-  /*
-  nix
-  */
+in
+{
+  # nix
   nixpkgs = {
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
@@ -18,7 +18,7 @@ in {
   };
 
   nix = {
-    settings.auto-optimise-store = true;
+    optimise.automatic = true;
 
     registry.nixpkgs.flake = inputs.nixpkgs;
 
@@ -29,19 +29,21 @@ in {
     '';
   };
 
-  /*
-  user
-  */
+  # user
   programs.zsh.enable = true;
   users.users.${vars.user} = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "video" "audio" "docker"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "audio"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 
-  /*
-  language
-  */
+  # language
   time.timeZone = "Europe/London";
 
   i18n = {
@@ -64,13 +66,11 @@ in {
 
   fonts.packages = with pkgs; [
     (nerdfonts.override {
-      fonts = ["JetBrainsMono"];
+      fonts = [ "JetBrainsMono" ];
     })
   ];
 
-  /*
-  system
-  */
+  # system
   programs.nh = {
     enable = true;
     clean = {
@@ -94,9 +94,7 @@ in {
     };
 
     systemPackages = with pkgs; [
-      /*
-      system utils
-      */
+      # system utils
       coreutils # gnu core utils
       htop # tui system monitor
       terminal
@@ -104,24 +102,19 @@ in {
       brightnessctl # control backlight
       fzf # fuzzy finder
       neovim # text editor
+      fd
 
-      /*
-      apps
-      */
+      # apps
       firefox
-      brave
+      brave # need a chromium based browser for react-native dev
       spotify
 
-      /*
-      audio/video
-      */
+      # audio/video
       feh # image viewer
       linux-firmware
       mpv # video player
 
-      /*
-      file management
-      */
+      # file management
       zip
       unzip
       ripgrep
@@ -129,19 +122,17 @@ in {
       pcmanfm # file manager
       fd # find files
 
-      /*
-      dev
-      */
+      # dev
       zulu17 # jdk
-      inputs.alejandra.defaultPackage.${system} # nix formatter
       nil # .nix lsp
+      nixfmt-rfc-style
       nodejs_20 # node lts
-      yarn # node package manager
+      # yarn # node package manager
       eslint_d # eslint
       prettierd # prettier
       gcc
       dotnet-sdk_8
-      jetbrains.rider
+      # jetbrains.rider
       cargo # rust
       lazygit # git tui
       androidStudioPackages.dev # needs to be dev right now (2024.2.2 has wayland support)

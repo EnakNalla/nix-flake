@@ -2,9 +2,11 @@
   vars,
   pkgs,
   ...
-}: let
+}:
+let
   colours = import ../../utils/colours.nix;
-in {
+in
+{
   home-manager.users.${vars.user} = {
     home = {
       packages = with pkgs; [
