@@ -1,4 +1,9 @@
-{ inputs, nixpkgs, ... }:
+{
+  inputs,
+  nixpkgs,
+  mac-app-util,
+  ...
+}:
 let
   vars = {
     user = "enak";
@@ -17,7 +22,7 @@ let
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = {
-        inherit inputs vars;
+        inherit inputs vars mac-app-util;
       };
       home-manager.users.${vars.user} = import ../../home;
     }

@@ -1,7 +1,11 @@
-{ vars, ... }:
+{
+  vars,
+  mac-app-util,
+  ...
+}:
 {
   imports = [
-    ./darwin.nix
+    (if vars.hostName == "mac" then mac-app-util.homeManagerModules.default else null)
 
     ./files
   ] ++ import ./programs;

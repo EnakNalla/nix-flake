@@ -1,7 +1,6 @@
 {
   inputs,
   nixpkgs,
-  config,
   ...
 }:
 let
@@ -10,6 +9,7 @@ let
     home = "/Users/enak";
     terminal = "alacritty";
     flake = "/Users/enak/nix-darwin";
+    hostName = "mac";
   };
 
   system = "aarch64-darwin";
@@ -17,8 +17,6 @@ let
   lib = inputs.darwin.lib;
 
   mac-app-util = inputs.mac-app-util;
-
-  darwin.enable = true;
 
   modules = [
     inputs.mac-app-util.darwinModules.default
@@ -31,7 +29,7 @@ let
       home-manager.useUserPackages = true;
       home-manager.users.${vars.user} = import ../../home;
       home-manager.extraSpecialArgs = {
-        inherit mac-app-util vars config;
+        inherit mac-app-util vars;
       };
     }
 
