@@ -1,20 +1,21 @@
 {
   inputs,
+  lib,
   nixpkgs,
-  mac-app-util,
   ...
 }:
 let
   vars = {
     user = "enak";
     terminal = "alacritty";
-    flake = "/home/enak/nix";
+    flake = "/home/enak/nix-flake";
     home = "/home/enak";
+    host = "nix";
   };
 
   system = "x86_64-linux";
 
-  lib = inputs.nixpkgs.lib;
+  mac-app-util = inputs.mac-app-util;
 
   modules = [
     inputs.home-manager.nixosModules.home-manager

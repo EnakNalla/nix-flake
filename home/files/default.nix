@@ -7,4 +7,6 @@
   };
 
   home.file.".config/aerospace/aerospace.toml".source = ./aerospace.toml;
+
+  home.file.".config/wall.png".source = ./wall.png;
 }

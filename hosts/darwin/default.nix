@@ -9,7 +9,7 @@ let
     home = "/Users/enak";
     terminal = "alacritty";
     flake = "/Users/enak/nix-darwin";
-    hostName = "mac";
+    host = "darwin";
   };
 
   system = "aarch64-darwin";

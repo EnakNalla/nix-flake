@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    (if vars.hostName == "mac" then mac-app-util.homeManagerModules.default else null)
+    (if vars.host == "darwin" then mac-app-util.homeManagerModules.default else ./theme.nix)
 
     ./files
   ] ++ import ./programs;
