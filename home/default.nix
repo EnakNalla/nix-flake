@@ -1,7 +1,7 @@
-{ mac-app-util, vars, ... }:
+{ vars, ... }:
 {
   imports = [
-    mac-app-util.homeManagerModules.default
+    ./darwin.nix
 
     ./files
   ] ++ import ./programs;

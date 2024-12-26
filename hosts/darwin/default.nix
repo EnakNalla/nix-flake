@@ -1,4 +1,9 @@
-{ inputs, nixpkgs, ... }:
+{
+  inputs,
+  nixpkgs,
+  config,
+  ...
+}:
 let
   vars = {
     user = "enak";
@@ -13,6 +18,8 @@ let
 
   mac-app-util = inputs.mac-app-util;
 
+  darwin.enable = true;
+
   modules = [
     inputs.mac-app-util.darwinModules.default
     # nh with darwin support (to remove once <https://github.com/LnL7/nix-darwin/pull/942>) merges
@@ -24,7 +31,7 @@ let
       home-manager.useUserPackages = true;
       home-manager.users.${vars.user} = import ../../home;
       home-manager.extraSpecialArgs = {
-        inherit mac-app-util vars;
+        inherit mac-app-util vars config;
       };
     }
 
