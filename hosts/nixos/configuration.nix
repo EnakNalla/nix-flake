@@ -64,8 +64,8 @@ in
 
   console.keyMap = "uk";
 
-  fonts.packages = with pkgs; [
-        pkgs.nerd-fonts.jetbrains-mono
+  fonts.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
   ];
 
   # system
@@ -100,6 +100,7 @@ in
       brightnessctl # control backlight
       fzf # fuzzy finder
       neovim # text editor
+      eza # ls replacement
 
       # apps
       firefox

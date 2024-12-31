@@ -222,12 +222,14 @@ with host;
           };
           decoration = {
             rounding = 10;
-            "col.shadow" = "rgba(1E202966)";
-            drop_shadow = "yes";
-            shadow_range = 60;
-            shadow_offset = "1 2";
-            shadow_render_power = 3;
-            shadow_scale = 0.97;
+            shadow = {
+              color = "rgba(1E202966)";
+              enabled = true;
+              range = 60;
+              offset = "1 2";
+              render_power = 3;
+              scale = 0.97;
+            };
             active_opacity = 1;
             inactive_opacity = 0.8;
           };

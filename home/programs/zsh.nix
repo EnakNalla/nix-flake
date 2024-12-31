@@ -1,4 +1,17 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
+let
+  zshExtras =
+    if vars.host == "darwin" then
+      ''
+        PATH="$HOME/Library/Android/sdk/platform-tools:$PATH" # adds adb to path
+        PATH="$PATH:$HOME/.dotnet/tools"
+        PATH="$PATH:/opt/homebrew"
+      ''
+    else
+      ''
+
+      '';
+in
 {
   programs.zsh = {
     enable = true;
@@ -46,7 +59,9 @@
     ];
 
     initExtra = ''
-      eval "$(/opt/homebrew/bin/brew shellenv)"
+      if [ Darwin = `uname` ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
 
       # completion styling
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -72,7 +87,6 @@
       PATH="$PATH:$HOME/.dotnet/tools"
       PATH="$PATH:/opt/homebrew"
 
-      export FLAKE="$HOME/nix-darwin"
       export NVM_DIR="$HOME/.nvm"
       export ANDROID_HOME="$HOME/Library/Android/sdk"
 

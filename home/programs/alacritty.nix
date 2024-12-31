@@ -1,3 +1,4 @@
+{ vars, ... }:
 let
   colours = import ../../utils/colours.nix;
 in
@@ -7,7 +8,7 @@ in
     settings = {
       font = {
         normal.family = "JetBrainsMono Nerd Font";
-        size = 18;
+        size = if (vars.host == "darwin") then 18 else 14;
       };
 
       env.term = "xterm-256color";
