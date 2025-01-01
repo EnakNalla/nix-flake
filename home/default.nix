@@ -1,14 +1,22 @@
 {
   vars,
-  mac-app-util,
+  inputs,
   ...
 }:
 {
   imports = [
-    (if vars.host == "darwin" then mac-app-util.homeManagerModules.default else ./theme.nix)
+    (if vars.host == "darwin" then inputs.mac-app-util.homeManagerModules.default else ./theme.nix)
+
+    inputs.catppuccin.homeManagerModules.catppuccin
 
     ./files
   ] ++ import ./programs;
+
+  catppuccin = {
+    enable = true;
+    flavor = "frappe";
+    nvim.enable = false;
+  };
 
   home = {
     username = vars.user;

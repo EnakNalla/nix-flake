@@ -1,5 +1,13 @@
 { pkgs, ... }:
 {
+  catppuccin.tmux = {
+    enable = true;
+    extraConfig = ''
+      set -g @catppuccin_flavor "frappe"
+      set -g @catppuccin_window_status_style "rounded"
+    '';
+  };
+
   programs.tmux = {
     enable = true;
     clock24 = true;
@@ -14,25 +22,10 @@
 
     shell = "${pkgs.zsh}/bin/zsh";
 
-    catppuccin = {
-      enable = true;
-      extraConfig = ''
-        set -g @catppuccin_flavor "frappe"
-        set -g @catppuccin_window_status_style "rounded"
-      '';
-    };
-
     plugins = with pkgs.tmuxPlugins; [
       sensible
       yank
       vim-tmux-navigator
-      # {
-      #     plugin = catppuccin;
-      #     extraConfig = ''
-      #       set -g @catppuccin_flavor "frappe"
-      #       set -g @catppuccin_window_status_style "rounded"
-      #     '';
-      #   }
       # {
       #   plugin = dracula;
       #   extraConfig = ''

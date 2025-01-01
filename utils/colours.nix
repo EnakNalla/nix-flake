@@ -2,13 +2,13 @@
 {
   hex = {
     bg = "#303446"; # Catppuccin Frappe background color
-    fg = "#D9E0EE"; # Catppuccin Frappe foreground color
+    fg = "#c6d0f5"; # Catppuccin Frappe foreground color
     red = "#F28FAD"; # Catppuccin Frappe red color
     orange = "#F8BD96"; # Catppuccin Frappe orange color
     cyan = "#89DCEB"; # Catppuccin Frappe cyan color
     green = "#A6E3A1"; # Catppuccin Frappe green color
     pink = "#F5BDE6"; # Catppuccin Frappe pink color
-    purple = "#C6A0F6"; # Catppuccin Frappe purple color
+    purple = "#ca9ee6"; # Catppuccin Frappe purple color
     yellow = "#F9E2AF"; # Catppuccin Frappe yellow color
     comment = "#6C7086"; # Catppuccin Frappe comment color
     currentLine = "#4C4F69"; # Catppuccin Frappe current line color
@@ -16,20 +16,20 @@
 
   rgb = {
     bg = "48,52,70"; # Catppuccin Frappe background RGB
-    fg = "217,224,238"; # Catppuccin Frappe foreground RGB
+    fg = "198,208,245"; # Catppuccin Frappe foreground RGB
     red = "242,143,173"; # Catppuccin Frappe red RGB
     orange = "248,189,150"; # Catppuccin Frappe orange RGB
     cyan = "137,220,235"; # Catppuccin Frappe cyan RGB
     green = "166,227,161"; # Catppuccin Frappe green RGB
     pink = "245,189,230"; # Catppuccin Frappe pink RGB
-    purple = "198,160,246"; # Catppuccin Frappe purple RGB
+    purple = "202,158,230"; # Catppuccin Frappe purple RGB
     yellow = "249,226,175"; # Catppuccin Frappe yellow RGB
     comment = "108,112,134"; # Catppuccin Frappe comment RGB
     currentLine = "76,79,105"; # Catppuccin Frappe current line RGB
   };
 
   hypr = {
-    active = "C6A0F6"; # Catppuccin Frappe purple for active
+    active = "ca9ee6"; # Catppuccin Frappe purple for active
     inactive = "4C4F69"; # Catppuccin Frappe current line color for inactive
     colshadow = "1E202966"; # Same as the original for shadow
   };

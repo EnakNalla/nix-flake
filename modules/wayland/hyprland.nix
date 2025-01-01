@@ -130,7 +130,8 @@ with host;
             {
               monitor = "";
               path = "$HOME/.config/wall.png";
-              color = "rgba(25, 20, 20, 1.0)";
+              color = colours.hex.bg;
+              # color = "rgba(25, 20, 20, 1.0)";
               blur_passes = 1;
               blur_size = 0;
               brightness = 0.2;
@@ -144,9 +145,12 @@ with host;
               dots_size = 0.2;
               dots_spacing = 0.2;
               dots_center = true;
-              outer_color = "rgba(0, 0, 0, 0)";
-              inner_color = "rgba(0, 0, 0, 0.5)";
-              font_color = "rgb(200, 200, 200)";
+              outer_color = "rgba(${colours.rgb.currentLine}, 1)";
+              # outer_color = "rgba(0, 0, 0, 0)";
+              inner_color = "rgba(${colours.rgb.comment}, 1)";
+              # inner_color = "rgba(0, 0, 0, 0.5)";
+              font_color = "rgba(${colours.rgb.fg}, 1)";
+              # font_color = "rgb(200, 200, 200)";
               fade_on_empty = false;
               placeholder_text = ''<i><span foreground="##cdd6f4">Input Password...</span></i>'';
               hide_input = false;
@@ -200,7 +204,7 @@ with host;
         };
       };
 
-      wayland.windowManager.hyprland = with colours.hypr; {
+      wayland.windowManager.hyprland = {
         enable = true;
         package = hyprland.packages.${pkgs.system}.hyprland;
         xwayland.enable = true;
@@ -214,8 +218,8 @@ with host;
           general = {
             border_size = 2;
             no_border_on_floating = false;
-            "col.active_border" = "rgb(${active})";
-            "col.inactive_border" = "rgb(${inactive})";
+            # "col.active_border" = "rgb(${active})";
+            # "col.inactive_border" = "rgb(${inactive})";
             resize_on_border = false;
             allow_tearing = false;
             layout = "dwindle";
@@ -223,7 +227,7 @@ with host;
           decoration = {
             rounding = 10;
             shadow = {
-              color = "rgba(1E202966)";
+              # color = "rgba(1E202966)";
               enabled = true;
               range = 60;
               offset = "1 2";
@@ -274,7 +278,7 @@ with host;
             mouse_move_enables_dpms = true;
             mouse_move_focuses_monitor = true;
             key_press_enables_dpms = true;
-            background_color = "0x111111";
+            # background_color = "0x111111";
           };
           windowrulev2 = [
             "float,title:^(Volume Control)$"

@@ -1,10 +1,12 @@
-{ pkgs, ... }: {
-    home = {
-        pointerCursor = {
-            gtk.enable = true;
-            name = "Dracula-cursors";
-            package = pkgs.dracula-theme;
-            size = 26;
-        };
+{ pkgs, ... }:
+{
+  # TODO: doesn't seem to be correct
+  home = {
+    pointerCursor = {
+      gtk.enable = true;
+      name = "Catppuccin-Frappe-Dark";
+      package = pkgs.catppuccin-cursors;
+      size = 26;
     };
+  };
 }

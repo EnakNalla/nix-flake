@@ -2,7 +2,6 @@
   inputs,
   lib,
   nixpkgs,
-  mac-app-util,
   ...
 }:
 let
@@ -22,10 +21,12 @@ let
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = {
-        inherit inputs vars mac-app-util;
+        inherit inputs vars;
       };
       home-manager.users.${vars.user} = import ../../home;
     }
+
+    inputs.catppuccin.nixosModules.catppuccin
 
     ./configuration.nix
   ] ++ (import ../../modules);

@@ -153,6 +153,7 @@ in
   networking = {
     hostName = "laptop";
     networkmanager.enable = true;
+    enableIPv6 = false;
   };
 
   security = {

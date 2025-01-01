@@ -27,34 +27,23 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      mac-app-util,
-      ...
-    }@inputs:
+    { self, nixpkgs, ... }@inputs:
     {
       darwinConfigurations = (
         import ./hosts/darwin {
-          inherit
-            inputs
-            nixpkgs
-            mac-app-util
-            ;
+          inherit inputs nixpkgs;
         }
       );
 
       nixosConfigurations = (
         import ./hosts/nixos {
           inherit (nixpkgs) lib;
-          inherit
-            inputs
-            nixpkgs
-            mac-app-util
-            ;
+          inherit inputs nixpkgs;
         }
       );
     };
