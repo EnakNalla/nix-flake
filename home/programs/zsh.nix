@@ -3,13 +3,17 @@ let
   zshExtras =
     if vars.host == "darwin" then
       ''
+        # android
         PATH="$HOME/Library/Android/sdk/platform-tools:$PATH" # adds adb to path
-        PATH="$PATH:$HOME/.dotnet/tools"
+        export ANDROID_HOME="$HOME/Library/Android/sdk"
+
         PATH="$PATH:/opt/homebrew"
       ''
     else
       ''
-
+        # android
+        PATH="$HOME/Android/Sdk/platform-tools:$PATH"
+        export ANDROID_HOME="$HOME/Android/Sdk"
       '';
 in
 {
@@ -34,6 +38,7 @@ in
     };
 
     prezto = {
+      enable = true;
       tmux = {
         autoStartLocal = true;
       };
@@ -82,13 +87,10 @@ in
       # shell integrations
       zvm_after_init_commands+=('eval "$(fzf --zsh)"')
 
-      # path
-      PATH="$HOME/Library/Android/sdk/platform-tools:$PATH" # adds adb to path
-      PATH="$PATH:$HOME/.dotnet/tools"
-      PATH="$PATH:/opt/homebrew"
+      ${zshExtras}
 
       export NVM_DIR="$HOME/.nvm"
-      export ANDROID_HOME="$HOME/Library/Android/sdk"
+      PATH="$PATH:$HOME/.dotnet/tools"
 
       [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
       [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion

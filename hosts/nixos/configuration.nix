@@ -103,9 +103,9 @@ in
       eza # ls replacement
 
       # apps
-      firefox
       brave # need a chromium based browser for react-native dev
       spotify
+      inputs.zen-browser.packages."${system}".default
 
       # audio/video
       feh # image viewer
@@ -124,7 +124,7 @@ in
       zulu17 # jdk
       nil # .nix lsp
       nixfmt-rfc-style
-      nodejs_20 # node lts
+      nodejs_22 # node lts
       # yarn # node package manager
       eslint_d # eslint
       prettierd # prettier
@@ -135,6 +135,7 @@ in
       lazygit # git tui
       androidStudioPackages.dev # needs to be dev right now (2024.2.2 has wayland support)
       go
+      pnpm
     ];
   };
 

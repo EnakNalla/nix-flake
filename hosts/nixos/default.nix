@@ -2,6 +2,7 @@
   inputs,
   lib,
   nixpkgs,
+  mac-app-util,
   ...
 }:
 let
@@ -14,8 +15,6 @@ let
   };
 
   system = "x86_64-linux";
-
-  mac-app-util = inputs.mac-app-util;
 
   modules = [
     inputs.home-manager.nixosModules.home-manager

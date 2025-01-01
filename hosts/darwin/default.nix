@@ -1,6 +1,7 @@
 {
   inputs,
   nixpkgs,
+  mac-app-util,
   ...
 }:
 let
@@ -16,10 +17,8 @@ let
 
   lib = inputs.darwin.lib;
 
-  mac-app-util = inputs.mac-app-util;
-
   modules = [
-    inputs.mac-app-util.darwinModules.default
+    mac-app-util.darwinModules.default
     # nh with darwin support (to remove once <https://github.com/LnL7/nix-darwin/pull/942>) merges
     ./nh.nix
 

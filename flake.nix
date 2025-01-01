@@ -25,22 +25,36 @@
     };
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      mac-app-util,
+      ...
+    }@inputs:
     {
       darwinConfigurations = (
         import ./hosts/darwin {
-          inherit (nixpkgs) lib;
-          inherit inputs nixpkgs;
+          inherit
+            inputs
+            nixpkgs
+            mac-app-util
+            ;
         }
       );
 
       nixosConfigurations = (
         import ./hosts/nixos {
           inherit (nixpkgs) lib;
-          inherit inputs nixpkgs;
+          inherit
+            inputs
+            nixpkgs
+            mac-app-util
+            ;
         }
       );
     };
