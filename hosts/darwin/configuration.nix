@@ -41,6 +41,14 @@
         _HIHideMenuBar = true;
       };
 
+      keyboard = {
+        enableKeyMapping = true;
+        remapCapsLockToControl = true;
+
+        # TODO: figure out disable the default spotlight keybinding
+        # userKeyMapping = [ ];
+      };
+
       dock = {
         autohide = true;
         show-recents = false;
@@ -100,6 +108,7 @@
       VISUAL = "nvim";
       TERMINAL = "${vars.terminal}";
       FLAKE = "${vars.flake}";
+      XDG_CONFIG_HOME = "$HOME/.config";
     };
 
     systemPackages = with pkgs; [
@@ -155,6 +164,7 @@
       "aerospace"
       "monarch"
       "vlc"
+      "ghostty"
     ];
 
     masApps = {
