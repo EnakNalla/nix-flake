@@ -42,7 +42,7 @@
     ];
 
     extraConfig = ''
-      # set-option -g default-command "${pkgs.zsh}/bin/zsh" # not sure why this is needed, but it is
+      set-option -g default-command "${pkgs.zsh}/bin/zsh" # not sure why this is needed, but it is
 
       # keybinds
       bind v split-window -v -c "#{pane_current_path}"
@@ -60,8 +60,12 @@
 
       # catppuccin options that need to be set after the plugin is loaded
       set -g status-left ""
-      set -g status-right '#[fg=#{@thm_crust},bg=#{@thm_teal}] session: #S '
+
       set -g status-right-length 100
+
+      set -sgF  status-right "#{E:@catppuccin_status_directory}"
+      set -agF status-right "#{E:@catppuccin_status_cpu}"
+      set -agF status-right "#{E:@catppuccin_status_battery}"
     '';
   };
 }

@@ -34,19 +34,19 @@
   system = {
     stateVersion = 5;
 
+    keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToControl = true;
+
+      # TODO: figure out disable the default spotlight keybinding
+      # userKeyMapping = [ ];
+    };
+
     defaults = {
       NSGlobalDomain = {
         ApplePressAndHoldEnabled = false;
         NSAutomaticCapitalizationEnabled = false;
         _HIHideMenuBar = true;
-      };
-
-      keyboard = {
-        enableKeyMapping = true;
-        remapCapsLockToControl = true;
-
-        # TODO: figure out disable the default spotlight keybinding
-        # userKeyMapping = [ ];
       };
 
       dock = {

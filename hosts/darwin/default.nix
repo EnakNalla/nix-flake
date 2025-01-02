@@ -36,9 +36,6 @@ let
       };
     }
 
-    inputs.catppuccin.nixosModules.catppuccin
-
-    ../../modules/catppuccin.nix
     ./configuration.nix
   ];
 in
