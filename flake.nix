@@ -15,14 +15,9 @@
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ########## Darwin ##########
     # nh with darwin support (to remove once <https://github.com/LnL7/nix-darwin/pull/942>) merges
-    nh.url = "github:viperML/nh";#
+    nh.url = "github:viperML/nh";
 
     darwin = {
       url = "github:LnL7/nix-darwin/master";
