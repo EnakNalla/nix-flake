@@ -122,8 +122,8 @@
         };
 
         iconTheme = {
-          package = pkgs.fluent-icon-theme;
-          name = "Fluent-dark";
+          package = pkgs.dracula-icon-theme;
+          name = "dracula-dark";
         };
       };
 
