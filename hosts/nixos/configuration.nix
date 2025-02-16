@@ -90,7 +90,7 @@
     };
 
     sessionVariables = {
-      DOTNET_ROOT = "${pkgs.dotnet-sdk_8}"; # required for global nuget packages
+      DOTNET_ROOT = "${pkgs.dotnet-sdk_8}/share/dotnet"; # required for global nuget packages
     };
 
     systemPackages = with pkgs; [
@@ -103,11 +103,13 @@
       linux-firmware
       sysstat
       acpi
+      lsof
 
       # apps
-      brave # need a chromium based browser for react-native
+      google-chrome # need a chromium based browser for react-native
       spotify
       librewolf
+      vesktop
 
       # audio/video
       feh # image viewer
@@ -181,6 +183,7 @@
       allowedTCPPorts = [
         8081
         8080
+        3000
       ];
     };
   };
