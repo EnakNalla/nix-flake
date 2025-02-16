@@ -53,6 +53,7 @@
       eamodio.gitlens
       timgthomas.explorer-gitignore
       lokalise.i18n-ally
+      rangav.vscode-thunder-client
 
       # UI
       usernamehw.errorlens
