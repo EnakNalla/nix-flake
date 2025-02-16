@@ -59,7 +59,6 @@
       usernamehw.errorlens
       aaron-bond.better-comments
       naumovs.color-highlight
-      # pkief.material-icon-theme
     ];
 
     userSettings = {

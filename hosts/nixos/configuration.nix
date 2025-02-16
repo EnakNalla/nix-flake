@@ -40,8 +40,8 @@
 
     extraOptions = ''
       experimental-features = nix-command flakes
-              keep-outputs          = true
-              keep-derivations      = true
+      keep-outputs          = true
+      keep-derivations      = true
     '';
   };
 
@@ -181,9 +181,9 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [
-        8081
-        8080
-        3000
+        8081 # expo
+        8080 # dev server
+        3000 # dev client
       ];
     };
   };
