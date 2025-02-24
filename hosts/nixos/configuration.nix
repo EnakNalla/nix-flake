@@ -3,6 +3,7 @@
   inputs,
   vars,
   pkgs,
+  hostname,
   ...
 }:
 {
@@ -104,6 +105,7 @@
       sysstat
       acpi
       lsof
+      usbutils
 
       # apps
       google-chrome # need a chromium based browser for react-native
@@ -142,6 +144,7 @@
       lazygit # git tui
       pnpm # node package manager
       android-studio
+      csharpier
     ];
   };
 
@@ -174,7 +177,7 @@
   };
 
   networking = {
-    hostName = "laptop";
+    hostName = hostname;
     networkmanager.enable = true;
     enableIPv6 = false;
 

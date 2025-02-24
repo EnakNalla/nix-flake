@@ -3,6 +3,7 @@
   inputs,
   vars,
   config,
+  hostname,
   ...
 }:
 {
@@ -162,10 +163,17 @@
         xwayland.enable = true;
 
         settings = {
-          monitor = [
-            "eDP-1,preferred,auto,auto"
-            "DP-3,preferred,auto,auto"
-          ];
+          monitor =
+            if hostname == "work" then
+              [
+                "eDP-1,preferred,auto,1.2"
+                "DP-3,preferred,auto,auto"
+              ]
+            else
+              [
+                "eDP-1,preferred,auto,auto"
+                "DP-3,preferred,auto,auto"
+              ];
           workspace = [ ];
           general = {
             border_size = 2;

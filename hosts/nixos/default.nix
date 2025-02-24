@@ -27,25 +27,33 @@ let
   ] ++ import ./desktops/wayland;
 in
 {
-  laptop = inputs.nixpkgs.lib.nixosSystem {
-    inherit system;
+  laptop =
+    let
+      hostname = "laptop";
+    in
+    inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
 
-    specialArgs = {
-      inherit inputs vars;
-      host.hostName = "laptop";
+      specialArgs = {
+        inherit inputs vars hostname;
+        host.hostName = "laptop";
+      };
+
+      modules = [ ./laptop ] ++ modules;
     };
 
-    modules = [ ./laptop ] ++ modules;
-  };
+  work =
+    let
+      hostname = "work";
+    in
+    inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
 
-  work = inputs.nixpkgs.lib.nixosSystem {
-    inherit system;
+      specialArgs = {
+        inherit inputs vars hostname;
+        host.hostName = "work";
+      };
 
-    specialArgs = {
-      inherit inputs vars;
-      host.hostName = "laptop";
+      modules = [ ./work ] ++ modules;
     };
-
-    modules = [ ./work ] ++ modules;
-  };
 }
