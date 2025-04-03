@@ -14,6 +14,7 @@ in
   environment.systemPackages = with pkgs; [
     fprintd
     nvidia-offload
+    stremio
   ];
 
   # sudo fprintd-enroll --finger right-index-finger <user>

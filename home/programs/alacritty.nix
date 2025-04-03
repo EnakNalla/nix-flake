@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.alacritty = {
     enable = true;
@@ -21,6 +22,15 @@
         save_to_clipboard = true;
         semantic_escape_chars = ",│`|:\"' ()[]{}<>\t";
 
+      };
+
+      terminal.shell = {
+        program = "${pkgs.zsh}/bin/zsh";
+        args = [
+          "-l"
+          "-c"
+          "tmux attach || tmux"
+        ];
       };
     };
   };

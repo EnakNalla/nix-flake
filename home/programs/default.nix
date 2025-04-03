@@ -6,4 +6,5 @@
   ./vscode.nix
   ./btop.nix
   ./android-studio
+  ./lazygit.nix
 ]

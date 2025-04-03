@@ -88,6 +88,7 @@
       VISUAL = "nvim";
       TERMINAL = "${vars.terminal}";
       FLAKE = "${vars.flake}";
+      BROWSER = "${pkgs.librewolf}/bin/librewolf";
     };
 
     sessionVariables = {
@@ -106,6 +107,7 @@
       acpi
       lsof
       usbutils
+      nnn # tui file explorer
 
       # apps
       google-chrome # need a chromium based browser for react-native
@@ -131,6 +133,7 @@
       fd # find replacement
 
       # dev
+      bruno # API GUI client
       zulu17 # jdk
       nil # nix lsp
       statix
@@ -173,12 +176,24 @@
     rootless = {
       enable = true;
       setSocketVariable = true;
+      daemon.settings = {
+        # userland-proxy = false;
+        ipv6 = false;
+        dns = [ "192.168.1.1" ];
+      };
     };
   };
 
   networking = {
     hostName = hostname;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+
+      wifi.powersave = false;
+    };
+
+    nameservers = [ "192.168.1.1" ];
+
     enableIPv6 = false;
 
     firewall = {
@@ -201,6 +216,8 @@
 
   #hardware
   services = {
+    resolved.enable = true; # dns caching
+
     pulseaudio.enable = false;
     pipewire = {
       enable = true;
@@ -234,6 +251,7 @@
     cursor = {
       package = pkgs.catppuccin-cursors.frappeBlue;
       name = "catppuccin-frappe-blue-cursors";
+      size = 24;
     };
 
     fonts = {

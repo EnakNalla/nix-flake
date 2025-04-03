@@ -131,7 +131,6 @@
       nil # .nix lsp
       nixfmt-rfc-style
       dotnet-sdk_8
-      lazygit # git tui
       cargo
       zulu17
       prettierd

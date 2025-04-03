@@ -6,7 +6,7 @@ let
     flake = "/Users/enak/nix-flake";
     home = "/Users/enak";
     host = "darwin";
-  }
+  };
 
   system = "aaarch64-darwin";
 
@@ -50,5 +50,5 @@ in
     };
 
     modules = modules;
-  }
+  };
 }

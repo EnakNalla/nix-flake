@@ -18,7 +18,7 @@
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
-      XCURSOR_SIZE = "32";
+      XCURSOR_SIZE = "24";
       XCURSOR_THEME = "catppuccin-frappe-blue-cursors";
     };
     sessionVariables = {
@@ -36,7 +36,6 @@
       wlr-randr
       networkmanagerapplet
       hyprshot
-      nnn # tui file explorer
     ];
   };
 
