@@ -56,6 +56,9 @@
       "video"
       "audio"
       "docker"
+      "dialout"
+      "tty"
+      "adbusers"
     ];
     shell = "${pkgs.zsh}/bin/zsh";
   };
@@ -89,6 +92,9 @@
       TERMINAL = "${vars.terminal}";
       FLAKE = "${vars.flake}";
       BROWSER = "${pkgs.librewolf}/bin/librewolf";
+      # you need to open android-studio and follow the setup wizard to get this path :(
+      ANDROID_HOME = "${vars.home}/Android/Sdk";
+      PATH = "${vars.home}/go/bin:$PATH";
     };
 
     sessionVariables = {
@@ -110,8 +116,7 @@
       nnn # tui file explorer
 
       # apps
-      google-chrome # need a chromium based browser for react-native
-      spotify
+      ungoogled-chromium # need a chromium based browser for react-native
       librewolf
       vesktop
 
@@ -133,7 +138,6 @@
       fd # find replacement
 
       # dev
-      bruno # API GUI client
       zulu17 # jdk
       nil # nix lsp
       statix
@@ -141,13 +145,20 @@
       nodejs_22 # lts node
       eslint_d
       prettierd
-      gcc
       cargo # rust
       dotnet-sdk_8
       lazygit # git tui
       pnpm # node package manager
       android-studio
       csharpier
+      cmake
+      ninja
+      gcc
+      autoconf
+      udev
+      automake
+      libtool
+      ncdu
     ];
   };
 
@@ -159,11 +170,13 @@
     nix-ld.enable = true; # needed for some vscode extensions & lazyvim
     dconf.enable = true;
 
+    adb.enable = true;
+
     nh = {
       enable = true;
       clean = {
         enable = true;
-        extraArgs = "--delete-older-than 2d";
+        extraArgs = "--delete-older-than 2d --keep 2";
         dates = "daily";
       };
       flake = "${vars.flake}";
@@ -179,7 +192,11 @@
       daemon.settings = {
         # userland-proxy = false;
         ipv6 = false;
-        dns = [ "192.168.1.1" ];
+        # dns = [ "192.168.1.1" ];
+        dns = [
+          "8.8.8.8"
+          "1.1.1.1"
+        ];
       };
     };
   };
@@ -199,10 +216,18 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [
+        8000
         8081 # expo
         8080 # dev server
         3000 # dev client
+        9003 # xdebug
+        8443
+        5173
       ];
+      extraCommands = ''
+        iptables -I INPUT 1 -s 172.16.0.0/12 -p tcp -d 172.17.0.1 -j ACCEPT
+        iptables -I INPUT 2 -s 172.16.0.0/12 -p udp -d 172.17.0.1 -j ACCEPT
+      '';
     };
   };
 
@@ -217,6 +242,8 @@
   #hardware
   services = {
     resolved.enable = true; # dns caching
+
+    udisks2.enable = true; # disk management
 
     pulseaudio.enable = false;
     pipewire = {

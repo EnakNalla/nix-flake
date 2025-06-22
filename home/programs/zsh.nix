@@ -38,7 +38,7 @@
       }
     ];
 
-    initExtra = ''
+    initContent = ''
       # completion styling
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
       zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
@@ -60,9 +60,6 @@
 
       export NVM_DIR="$HOME/.nvm"
       PATH="$PATH:$HOME/.dotnet/tools"
-
-      export ANDROID_HOME="$HOME/Android/Sdk"
-      PATH="$HOME/Android/Sdk/platform-tools:$PATH"
     '';
   };
 

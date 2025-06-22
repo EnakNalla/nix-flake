@@ -1,72 +1,100 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  hostname,
+  ...
+}:
 {
   programs.vscode = {
     enable = true;
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
     mutableExtensionsDir = true;
 
     profiles.default = {
-      extensions = with pkgs.vscode-marketplace; [
-        # microsoft
-        ms-vscode-remote.remote-ssh
-        ms-vscode.remote-explorer
-        ms-vscode-remote.remote-ssh-edit
-        ms-azuretools.vscode-docker
-        ms-vscode.hexeditor
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
 
-        # vim
-        vscodevim.vim
-        vspacecode.whichkey
+      extensions =
+        with pkgs.vscode-marketplace;
+        [
 
-        # languages
-        jnoortheen.nix-ide
-        golang.go
-        mikestead.dotenv
-        sumneko.lua
+          # microsoft
+          ms-vscode-remote.remote-ssh
+          ms-vscode.remote-explorer
+          ms-vscode-remote.remote-ssh-edit
+          ms-azuretools.vscode-docker
+          ms-azuretools.vscode-containers
+          ms-vscode.hexeditor
+          ms-vscode-remote.remote-containers
 
-        # TODO: broken, needs to be fixed
-        # cs
-        # ms-dotnettools.csharp
-        # pkgs.vscode-extensions.ms-dotnettools.csdevkit
-        # ms-dotnettools.vscode-dotnet-runtime
-        # patcx.vscode-nuget-gallery
-        # kreativ-software.csharpextensions
-        # csharpier.csharpier-vscode
+          # vim
+          vscodevim.vim
+          vspacecode.whichkey
 
-        # ts
-        yoavbls.pretty-ts-errors
-        dbaeumer.vscode-eslint
-        christian-kohler.npm-intellisense
-        esbenp.prettier-vscode
-        bradlc.vscode-tailwindcss
+          # languages
+          jnoortheen.nix-ide
+          golang.go
+          mikestead.dotenv
+          sumneko.lua
+          bmewburn.vscode-intelephense-client
 
-        # utilities
-        alexcvzz.vscode-sqlite
-        patbenatar.advanced-new-file
-        alefragnani.bookmarks
-        gruntfuggly.todo-tree
-        ms-vscode.hexeditor
-        christian-kohler.path-intellisense
-        amodio.toggle-excluded-files
-        streetsidesoftware.code-spell-checker
-        editorconfig.editorconfig
-        pkgs.vscode-marketplace-release.github.copilot
-        pkgs.vscode-marketplace-release.github.copilot-chat
-        eamodio.gitlens
-        timgthomas.explorer-gitignore
-        lokalise.i18n-ally
-        rangav.vscode-thunder-client
+          # TODO: broken, needs to be fixed (doesn't work but also all other extensions are missing when these are installed)
+          # cs
+          # ms-dotnettools.csharp
+          # pkgs.vscode-extensions.ms-dotnettools.csdevkit
+          # ms-dotnettools.vscode-dotnet-runtime
+          # patcx.vscode-nuget-gallery
+          # kreativ-software.csharpextensions
+          # csharpier.csharpier-vscode
 
-        # UI
-        usernamehw.errorlens
-        aaron-bond.better-comments
-        naumovs.color-highlight
-      ];
+          # ts
+          yoavbls.pretty-ts-errors
+          dbaeumer.vscode-eslint
+          christian-kohler.npm-intellisense
+          esbenp.prettier-vscode
+          bradlc.vscode-tailwindcss
+          expo.vscode-expo-tools
+          orta.vscode-jest
+
+          #c/pp
+          ms-vscode.cpptools
+          ms-vscode.cmake-tools
+
+          # utilities
+          alexcvzz.vscode-sqlite
+          patbenatar.advanced-new-file
+          alefragnani.bookmarks
+          gruntfuggly.todo-tree
+          ms-vscode.hexeditor
+          christian-kohler.path-intellisense
+          amodio.toggle-excluded-files
+          streetsidesoftware.code-spell-checker
+          editorconfig.editorconfig
+          pkgs.vscode-marketplace-release.github.copilot
+          pkgs.vscode-marketplace-release.github.copilot-chat
+          eamodio.gitlens
+          timgthomas.explorer-gitignore
+          lokalise.i18n-ally
+          rangav.vscode-thunder-client
+          redhat.vscode-yaml
+
+          # UI
+          usernamehw.errorlens
+          aaron-bond.better-comments
+          naumovs.color-highlight
+        ]
+        ++ (
+          if hostname == "work" then
+            [
+              espressif.esp-idf-extension
+              johnstoncode.svn-scm
+            ]
+          else
+            [ ]
+        );
 
       userSettings = {
         # general
         "window.titleBarStyle" = "custom";
+        "redhat.telemetry.enabled" = false;
 
         "files.exclude" = {
           ".gitignore" = false;
@@ -513,6 +541,10 @@
         ];
 
         # languages
+        # php
+        "[php]" = {
+          "editor.defaultFormatter" = "bmewburn.vscode-intelephense-client";
+        };
 
         # javascript
         "javascript.updateImportsOnFileMove.enabled" = "always";
@@ -551,6 +583,17 @@
             };
           };
         };
+
+        # c/pp
+        "[c]" = {
+          "editor.defaultFormatter" = "ms-vscode.cpptools";
+        };
+
+        "[cpp]" = {
+          "editor.defaultFormatter" = "ms-vscode.cpptools";
+        };
+
+        "idf.hasWalkthroughBeenShown" = "true";
       };
 
       keybindings = [

@@ -89,6 +89,8 @@
         if [[ $(hyprctl monitors 2>/dev/null | rg "\sDP-[0-9]+") ]]; then
           if [[ $1 == "open" ]]; then
             ${config.programs.hyprland.package}/bin/hyprctl keyword monitor "eDP-1,preferred,auto,auto"
+            sleep 0.5
+            ${config.programs.hyprland.package}/bin/hyprctl dispatch dpms on eDP-1
           else
             ${config.programs.hyprland.package}/bin/hyprctl keyword monitor "eDP-1,disable"
           fi
@@ -244,7 +246,7 @@
           ];
           bind = [
             "SUPER,RETURN,exec,${pkgs.${vars.terminal}}/bin/${vars.terminal}"
-            # "SUPERSHIFT,RETURN,exec,${pkgs.firefox}/bin/firefox"
+            "SUPERSHIFT,RETURN,exec,${pkgs.librewolf}/bin/librewolf"
             # "SUPER,E,exec,${pkgs.dolphin}/bin/dolphin"
             "SUPER,SPACE,exec,${pkgs.wofi}/bin/wofi --show drun"
 

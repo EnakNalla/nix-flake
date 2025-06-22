@@ -11,16 +11,6 @@ let
   system = "x86_64-linux";
 
   modules = [
-    inputs.home-manager.nixosModules.default
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {
-        inherit inputs vars;
-      };
-      home-manager.users.${vars.user} = import ../../home;
-    }
-
     ./configuration.nix
 
     inputs.stylix.nixosModules.stylix
@@ -36,10 +26,23 @@ in
 
       specialArgs = {
         inherit inputs vars hostname;
-        host.hostName = "laptop";
+        host.hostName = hostname;
       };
 
-      modules = [ ./laptop ] ++ modules;
+      modules = [
+        ./laptop
+
+        inputs.home-manager.nixosModules.default
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs vars hostname;
+          };
+          home-manager.users.${vars.user} = import ../../home;
+        }
+
+      ] ++ modules;
     };
 
   work =
@@ -51,9 +54,22 @@ in
 
       specialArgs = {
         inherit inputs vars hostname;
-        host.hostName = "work";
+        host.hostName = hostname;
       };
 
-      modules = [ ./work ] ++ modules;
+      modules = [
+        ./work
+
+        inputs.home-manager.nixosModules.default
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs vars hostname;
+          };
+          home-manager.users.${vars.user} = import ../../home;
+        }
+
+      ] ++ modules;
     };
 }
