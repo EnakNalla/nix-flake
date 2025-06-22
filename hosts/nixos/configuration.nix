@@ -6,6 +6,17 @@
   hostname,
   ...
 }:
+let
+  dotnet-sdk = (
+    with pkgs.dotnetCorePackages;
+    combinePackages [
+      dotnet_9.sdk
+      dotnet_8.sdk
+    ]
+  );
+  dotnetRoot = "${dotnet-sdk}/share/dotnet";
+  dotnetPath = "${dotnet-sdk}/bin/dotnet";
+in
 {
   # boot
   boot = {
@@ -98,7 +109,12 @@
     };
 
     sessionVariables = {
-      DOTNET_ROOT = "${pkgs.dotnet-sdk_8}/share/dotnet"; # required for global nuget packages
+      DOTNET_ROOT = dotnetRoot;
+      DOTNET_PATH = dotnetPath;
+    };
+
+    etc = {
+      "dotnet/install_location".text = dotnetRoot;
     };
 
     systemPackages = with pkgs; [
@@ -146,7 +162,7 @@
       eslint_d
       prettierd
       cargo # rust
-      dotnet-sdk_8
+      dotnet-sdk
       lazygit # git tui
       pnpm # node package manager
       android-studio
